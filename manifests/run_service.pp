@@ -15,7 +15,7 @@ class consul::run_service {
       ensure   => $consul::service_ensure,
       name     => $init_selector,
       enable   => $consul::service_enable,
-      provider => $consul::init_style,
+      #      provider => $consul::init_style,
     }
   }
 
