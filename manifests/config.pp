@@ -78,6 +78,17 @@ class consul::config(
           content => template('consul/consul.launchd.erb')
         }
       }
+
+      'supervisord' : {
+        supervisord::program { 'consul':
+          command     => "$consul::bin_dir/consul agent -config-dir $consul::config_dir $consul::extra_options",
+          priority    => '10',
+          directory => $consul::bin_dir,
+          user => $consul::user,
+          autorestart => true,
+          redirect_stderr => false
+        }
+      }
       default : {
         fail("I don't know how to create an init script for style ${consul::init_style}")
       }
